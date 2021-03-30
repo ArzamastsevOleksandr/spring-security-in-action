@@ -16,7 +16,8 @@ public class UserManagementSecurityCfg {
     public UserDetailsService userDetailsService() {
         var inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
 
-        UserDetails userDetails = User.withUsername("u")
+        UserDetails userDetails = User
+                .withUsername("u")
                 .password("p")
                 .authorities("read")
                 .build();
