@@ -5,9 +5,10 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import static com.ssia.config.UserManagementSecurityCfg.USERS;
 
 @Component
 public class CustomAuthProvider implements AuthenticationProvider {
@@ -17,11 +18,13 @@ public class CustomAuthProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = String.valueOf(authentication.getCredentials());
 
-        if (username.equals("u") && password.equals("p")) {
-            return new UsernamePasswordAuthenticationToken(username, password, List.of());
-        } else {
-            throw new AuthenticationCredentialsNotFoundException("Bugaga");
+        if (USERS.containsKey(username)) {
+            UserDetails userDetails = USERS.get(username);
+            if (userDetails.getPassword().equals(password)) {
+                return new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
+            }
         }
+        throw new AuthenticationCredentialsNotFoundException("Username/Password is incorrect");
     }
 
     @Override
