@@ -9,20 +9,31 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import java.util.Map;
+
 @Configuration
 public class UserManagementSecurityCfg {
+
+    public static final Map<String, UserDetails> USERS = Map.of(
+            "u", User
+                    .withUsername("u")
+                    .password("p")
+                    .authorities("read")
+                    .build(),
+            "uu", User
+                    .withUsername("uu")
+                    .password("pp")
+                    .authorities(() -> "read", () -> "write")
+                    .passwordEncoder(s -> s)
+                    .accountExpired(false)
+                    .disabled(false)
+                    .build()
+    );
 
     @Bean
     public UserDetailsService userDetailsService() {
         var inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
-
-        UserDetails userDetails = User
-                .withUsername("u")
-                .password("p")
-                .authorities("read")
-                .build();
-
-        inMemoryUserDetailsManager.createUser(userDetails);
+        USERS.values().forEach(inMemoryUserDetailsManager::createUser);
         return inMemoryUserDetailsManager;
     }
 
