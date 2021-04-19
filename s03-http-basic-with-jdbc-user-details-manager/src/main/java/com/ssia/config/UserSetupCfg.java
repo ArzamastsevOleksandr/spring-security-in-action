@@ -7,6 +7,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -18,6 +19,7 @@ import java.util.UUID;
 public class UserSetupCfg {
 
     private final EntityManager entityManager;
+    private final PasswordEncoder passwordEncoder;
 
     @EventListener
     @Transactional
@@ -25,7 +27,7 @@ public class UserSetupCfg {
         var userEntity = new UserEntity();
         userEntity.setId(UUID.randomUUID().toString());
         userEntity.setUsername("u");
-        userEntity.setPassword("p");
+        userEntity.setPassword(passwordEncoder.encode("p"));
         entityManager.persist(userEntity);
 
         var authorityEntity = new AuthorityEntity();
