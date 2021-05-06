@@ -26,7 +26,7 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
     @Qualifier(value = "plainTextPasswordEncoder")
     private PasswordEncoder plainTextPasswordEncoder;
 
-    @Resource(name = "sha512PasswordEncoder")
+    @Resource
     private PasswordEncoder sha512PasswordEncoder;
 
     @Override
