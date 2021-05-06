@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.UUID;
 
 @Configuration
@@ -51,6 +52,9 @@ public class DataSetupCfg {
         writeAuthorityEntity.setName(AuthorityNameEnum.WRITE);
         writeAuthorityEntity.setUser(userEntity);
         entityManager.persist(writeAuthorityEntity);
+
+        userEntity.setAuthorities(List.of(readAuthorityEntity, writeAuthorityEntity));
+        entityManager.persist(userEntity);
     }
 
 }
