@@ -4,7 +4,7 @@ import com.s07ssia.entity.enums.EncryptionAlgorithmEnum;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -21,7 +21,7 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private EncryptionAlgorithmEnum algorithm;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private List<AuthorityEntity> authorities;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<RoleEntity> roles;
 
 }

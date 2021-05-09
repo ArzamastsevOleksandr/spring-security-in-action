@@ -21,7 +21,7 @@ public class UserDetailsImpl implements UserDetails {
 
     public UserDetailsImpl(UserEntity userEntity) {
         this.userEntity = userEntity;
-        this.authorities = userEntity.getAuthorities()
+        this.authorities = userEntity.getRoles()
                 .stream()
                 .map(authorityEntity -> new SimpleGrantedAuthority(authorityEntity.getName().toString()))
                 .collect(toList());
