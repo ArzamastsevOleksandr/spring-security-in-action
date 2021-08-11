@@ -1,0 +1,16 @@
+###
+POST http://localhost:8090/user/add
+Content-Type: application/json
+
+{ "username": "u", "password": "p" }
+###
+POST http://localhost:8090/user/auth
+Content-Type: application/json
+
+{ "username": "u", "password": "p" }
+###
+POST http://localhost:8090/otp/check
+Content-Type: application/json
+
+{ "username": "u", "otp": "9037" }
+###
