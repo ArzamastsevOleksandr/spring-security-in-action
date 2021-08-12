@@ -1,0 +1,12 @@
+GET http://localhost:8091/test
+###
+GET http://localhost:8091/login
+username:u
+password:p
+###
+GET http://localhost:8091/login
+username:u
+otp:1267
+###
+GET http://localhost:8091/test
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InUifQ.0_JW8v0BKPK-Ymn84KzKDBDReIdGT-sMs9I0U8k4Soo
